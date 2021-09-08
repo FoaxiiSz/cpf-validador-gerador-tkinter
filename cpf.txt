@@ -1,0 +1,89 @@
+from random import randint
+from tkinter import *
+
+def validarcpf():
+    cpf = input('Digite seu CPF, digite certo porfavor:')
+
+        # IGNORA COISAS PARA VERIFICAR O CPF...
+    num1 = int(cpf[0])
+    num2 = int(cpf[1])
+    num3 = int(cpf[2])
+    num4 = int(cpf[3])
+    num5 = int(cpf[4])
+    num6 = int(cpf[5])
+    num7 = int(cpf[6])
+    num8 = int(cpf[7])
+    num9 = int(cpf[8])
+    num10 = int(cpf[9])
+    num11 = int(cpf[10])
+
+
+        # Progama Principal
+        # VALIDAÇÃO DO 1 e 2! DÍGITO!
+    verifi1 = (num1 * 10) + (num2 * 9) + (num3 * 8) + (num4 * 7) + (num5 * 6) + (num6 * 5) + (num7 * 4) + (num8 * 3) + (
+                    num9 * 2)
+    resto1 = (verifi1 * 10) % 11
+    verifi2 = (num1 * 11) + (num2 * 10) + (num3 * 9) + (num4 * 8) + (num5 * 7) + (num6 * 6) + (num7 * 5) + (
+                    num8 * 4) + (num9 * 3) + (num10 * 2)
+    resto2 = (verifi2 * 10) % 11
+    if resto1 == num10 and resto2 == num11:
+        print('CPF VÁLIDO')
+    else:
+        print('CPF INVÁLIDO')
+
+
+
+def geradorcpf():
+    cpfgerador = randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0,
+                                                                                                                    9), randint(
+            0, 9), randint(0, 9)
+    geradordigito1 = (cpfgerador[0] * 10) + (cpfgerador[1] * 9) + (cpfgerador[2] * 8) + (cpfgerador[3] * 7) + (
+                    cpfgerador[4] * 6) + (cpfgerador[5] * 5) + (cpfgerador[6] * 4) + (cpfgerador[7] * 3) + (cpfgerador[8] * 2)
+    primeirodig = geradordigito1 * 10 % 11
+    geradordigito12 = (cpfgerador[0] * 11) + (cpfgerador[1] * 10) + (cpfgerador[2] * 9) + (cpfgerador[3] * 8) + (
+                    cpfgerador[4] * 7) + (cpfgerador[5] * 6) + (cpfgerador[6] * 5) + (cpfgerador[7] * 4) + (
+                                    cpfgerador[8] * 3) + (primeirodig * 2)
+    segundodig = geradordigito12 * 10 % 11
+    if primeirodig and segundodig >= 10:
+        while primeirodig and segundodig >= 10:
+            cpfgerador = randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(
+                    0, 9), randint(0, 9), randint(0, 9)
+            geradordigito1 = (cpfgerador[0] * 10) + (cpfgerador[1] * 9) + (cpfgerador[2] * 8) + (cpfgerador[3] * 7) + (
+                        cpfgerador[4] * 6) + (cpfgerador[5] * 5) + (cpfgerador[6] * 4) + (cpfgerador[7] * 3) + (
+                                        cpfgerador[8] * 2)
+            primeirodig = geradordigito1 * 10 % 11
+            geradordigito12 = (cpfgerador[0] * 11) + (cpfgerador[1] * 10) + (cpfgerador[2] * 9) + (cpfgerador[3] * 8) + (
+                        cpfgerador[4] * 7) + (cpfgerador[5] * 6) + (cpfgerador[6] * 5) + (cpfgerador[7] * 4) + (
+                                        cpfgerador[8] * 3) + (primeirodig * 2)
+            segundodig = geradordigito12 * 10 % 11
+            if primeirodig and segundodig <= 10:
+                break
+
+
+    texto = f"""CPF GERADO: {cpfgerador[0]}{cpfgerador[1]}{cpfgerador[2]}.{cpfgerador[3]}{cpfgerador[4]}{cpfgerador[5]}.{cpfgerador[6]}{cpfgerador[7]}{cpfgerador[8]}-{primeirodig}{segundodig}"""     
+
+    textgerador['text'] = texto            
+  
+
+
+# Interface Gráfica
+
+app = Tk()
+app.title("Davi")
+app.geometry('250x250')
+
+texto = Label(app ,text='----CPF VALIDADOR/GERADOR----')
+texto.grid(column=0, row=0, padx=10, pady=10)
+
+
+
+botao = Button(app,text='Clique Aqui', command=geradorcpf)
+botao.grid(column=0, row=1, padx=5, pady=5)
+
+
+textgerador = Label(app, text='')
+textgerador.grid(column=0, row= 5)
+
+
+
+app.mainloop()
